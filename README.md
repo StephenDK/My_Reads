@@ -19,12 +19,21 @@
 <p>cd Desktop/'Your new folder'</p>
 
 <li>Next clone project from github. Run the command below.</li>
-<p>git clone https://github.com/StephenDK/My_Reads.git</p>
+<pre>
+	<code>git clone https://github.com/StephenDK/My_Reads.git</code>
+</pre>
+
 
 <li>Next install dependencies from node. rRn command below</li>
-<p>npm install</p>
+<pre>
+	<code>npm install</code>
+</pre>
+
 
 <li>Last run the application server with the command below</li>
-<p>npm start</p>
+<pre>
+	<code>npm start</code>
+</pre>
+
 </ol>
 
