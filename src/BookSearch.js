@@ -32,19 +32,21 @@ class BookSearch extends Component {
             Books: [],
             query: ''
         }))
-        console.log('ERROR')
+        
     }
 
     updateShelf = (books) => {
-        // use a for of loop to loop over all the books creating
-        //a shelf object key and a value
-        if (books.length !== 0) {
+
+        if (books.length > 0) {
             for ( let book of books) {
                 book.shelf = null;
             } 
         } else {
-            console.log('sorry no books found');
+            return;
         }
+        // use a for of loop to loop over all the books creating
+        //a shelf object key and a value
+        
     }
     
 
