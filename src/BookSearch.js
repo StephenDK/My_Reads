@@ -8,7 +8,8 @@ import Book from './Book';
 class BookSearch extends Component {
     state = {
         Books: [],
-        query: ''
+        query: '',
+        handleError: false
     }
 
     updateQuery = (query) => {
@@ -22,17 +23,24 @@ class BookSearch extends Component {
     searchBooks = (value) => {
         value.length !== 0 ?
          BooksAPI.search(value).then((books) => {
-            this.updateShelf(books);
-             console.log(books)
-            this.setState(() => ({
-                Books: books
-            }))
+             if (books.length > 0) {
+                this.updateShelf(books);
+                console.log(books)
+                this.setState(() => ({
+                    Books: books,
+                    handleError: false
+                }))
+             } else if (typeof(books) === 'object') {
+                 this.setState(() => ({
+                     Books: [],
+                     query: '',
+                     handleError: true
+                 }))
+             }
+             console.log('This is inside the API search function', books)
         }).catch((error) => {
             if (error) {
-                this.setState({
-                    Book: [],
-                    query: ''
-                })
+                console.log(error);
             }
         })
         : this.setState(() => ({
@@ -58,34 +66,41 @@ class BookSearch extends Component {
     
 
     render() {
-        console.log('Props being passed into search component = ', this.props);
+        // var x = this.state.Books
+        // console.log('This is the state==', x)
+        // console.log('Props being passed into search component = ', this.props);
         // console.log('BOOKS STATE = ', this.state.Books)
         return (
             <div className="search-books">
                 <div className="search-books-bar">
                     <Link to='/' className="close-search">Close</Link>
                         <div className="search-books-input-wrapper">
-                            {/*
-                            NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                            You can find these search terms here:
-                            https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                            However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                            you don't find a specific author or title. Every search is limited by search terms.
-                            */}
                             <input type="text" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)} placeholder="Search by title or author"/>
                         </div>
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    {/* map over the book in the search state using the book component from each book */}
-                        {this.state.Books.map((book, index) => (
+                    {/* map over the book in the search state using the book component from each book */}                        
+                        {this.state.handleError === true ?
+                            <div>No Results</div>
+                        :
+                        this.state.Books.map((book, index) => (
                             <Book 
                                 key={index}
                                 book={book}
                                 updateBook={this.props.updateBook}
                             />
-                        ))}
+                        ))    
+                    }
+                        
+                        
+                        {/* {this.state.Books.map((book, index) => (
+                            <Book 
+                                key={index}
+                                book={book}
+                                updateBook={this.props.updateBook}
+                            />
+                        ))} */}
                     </ol>
                 </div>
             </div>

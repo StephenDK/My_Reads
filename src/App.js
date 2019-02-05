@@ -35,8 +35,8 @@ class BooksApp extends React.Component {
     } else {
       BooksAPI.update(book, shelf).then(() => {
         console.log('book is not in application state')
-        this.state.Books.setState((currentState) => ({
-          Books: currentState.Book.concat(book)
+        this.setState((currentState) => ({
+          Books: currentState.Books.concat({book})
         }))
         this.fetchBooks();
       })
