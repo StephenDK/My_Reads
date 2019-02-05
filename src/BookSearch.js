@@ -51,7 +51,10 @@ class BookSearch extends Component {
     }
 
     updateShelf = (books) => {
-
+        // filter all books from book and check agains allBooks from app
+        // if the app.js book === search results book
+        // set shelf of search books to shelf of app books
+        // other wise set shelf to none
         if (books.length > 0) {
             for ( let book of books) {
                 book.shelf = 'none';
