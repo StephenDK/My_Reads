@@ -10,12 +10,6 @@ import BookSearch from './BookSearch';
 class BooksApp extends React.Component {
   state = {
     Books: []
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
   }
 
   componentDidMount() {
@@ -41,7 +35,9 @@ class BooksApp extends React.Component {
     } else {
       BooksAPI.update(book, shelf).then(() => {
         console.log('book is not in application state')
-        this.state.Books.concat(book);
+        this.state.Books.setState((currentState) => ({
+          Books: currentState.Book.concat(book)
+        }))
         this.fetchBooks();
       })
     }

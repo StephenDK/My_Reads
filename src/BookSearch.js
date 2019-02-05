@@ -27,6 +27,13 @@ class BookSearch extends Component {
             this.setState(() => ({
                 Books: books
             }))
+        }).catch((error) => {
+            if (error) {
+                this.setState({
+                    Book: [],
+                    query: ''
+                })
+            }
         })
         : this.setState(() => ({
             Books: [],
@@ -39,7 +46,7 @@ class BookSearch extends Component {
 
         if (books.length > 0) {
             for ( let book of books) {
-                book.shelf = null;
+                book.shelf = 'none';
             } 
         } else {
             return;
