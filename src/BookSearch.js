@@ -23,7 +23,9 @@ class BookSearch extends Component {
     searchBooks = (value) => {
         value.length !== 0 ?
          BooksAPI.search(value).then((books) => {
-             if (books.length > 0) {
+            books = books.filter((book) => (book.imageLinks));
+            
+            if (books.length > 0) {
                 this.updateShelf(books);
                 console.log(books)
                 this.setState(() => ({
@@ -51,6 +53,7 @@ class BookSearch extends Component {
     }
 
     updateShelf = (books) => {
+        
         // filter all books from book and check agains allBooks from app
         // if the app.js book === search results book
         // set shelf of search books to shelf of app books
