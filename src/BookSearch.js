@@ -22,11 +22,11 @@ class BookSearch extends Component {
     searchBooks = (value) => {
         value.length !== 0 ?
          BooksAPI.search(value).then((books) => {
-            books = books.filter((book) => (book.imageLinks));
-            
-            if (books.length > 0) {
+             
+             if (books.length > 0) {
+                books = books.filter((book) => (book.imageLinks));
                 this.updateShelf(books);
-                console.log(books)
+                // console.log(books)
                 this.setState(() => ({
                     Books: books,
                     handleError: false
@@ -38,7 +38,6 @@ class BookSearch extends Component {
                      handleError: true
                  }))
              }
-             console.log('This is inside the API search function', books)
         }).catch((error) => {
             if (error) {
                 console.log(error);
