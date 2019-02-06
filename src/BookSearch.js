@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
-
 // components
 import Book from './Book';
 
@@ -53,29 +52,32 @@ class BookSearch extends Component {
     }
 
     updateShelf = (books) => {
-        
-        // filter all books from book and check agains allBooks from app
-        // if the app.js book === search results book
-        // set shelf of search books to shelf of app books
-        // other wise set shelf to none
-        if (books.length > 0) {
+        // Save a copy of the application state
+        let allBooks = this.props.allBooks;
+            // loop through all books and create and set shelf
             for ( let book of books) {
                 book.shelf = 'none';
             } 
-        } else {
-            return;
-        }
-        // use a for of loop to loop over all the books creating
-        //a shelf object key and a value
-        
+
+            // Loop through books again 
+            for (let book of books) {
+                for (let b of allBooks) {
+                    if (b.id === book.id) {
+                        book.shelf = b.shelf
+                    }
+                }
+            }
+            return books;
     }
     
 
     render() {
-        // var x = this.state.Books
+        // TESTING
         // console.log('This is the state==', x)
-        // console.log('Props being passed into search component = ', this.props);
+        // console.log('Props being passed into search component = ', this.props.allBooks);
         // console.log('BOOKS STATE = ', this.state.Books)
+        // console.log('All Books from App.js', this.state.allBooks)
+        
         return (
             <div className="search-books">
                 <div className="search-books-bar">

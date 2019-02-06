@@ -4,7 +4,7 @@ import React from 'react';
 const Book = (props) => {
     // console.log('Props', props);
     let {book, updateBook} = props;
-    console.log('BOOK = ', book);
+    // console.log('BOOK = ', book);
     return (
        <li>
             <div className="book">
